@@ -2,10 +2,18 @@ import cv2
 import pytesseract
 import re
 import sys
-                  
+#--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789         
+
+
+from tkinter import *
+from tkinter import ttk         
 
 carplate_haar_cascade = cv2.CascadeClassifier('haarcascade_russian_plate_number.xml')
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture('VID_20251124_131323.mp4')
+
+root = Tk()
+root.title("Распознование номера")
+root.geometry("250x200")
 
 
 ret, frame = video_capture.read()
@@ -28,9 +36,13 @@ for i, (x, y, w, h) in enumerate(plaques):
 			
 	number = pytesseract.image_to_string(
 		resized,
-		config='--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+		config='-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
 
-	cv2.imwrite('/tmp/Video_Number_Znak.jpg', resized)
+	print(number)
+	#cv2.imwrite('/tmp/Video_Number_Znak.jpg', resized)
 
 			
-
+label = ttk.Label(text=number)
+label.pack()
+ 
+root.mainloop()
