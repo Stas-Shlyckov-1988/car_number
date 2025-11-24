@@ -44,5 +44,11 @@ for i, (x, y, w, h) in enumerate(plaques):
 			
 label = ttk.Label(text=number)
 label.pack()
+
+editor = Text()
+editor.pack(expand=1, fill=BOTH)
+ 
+python_img = PhotoImage(file="i.png")
+editor.image_create("1.0", image=python_img)
  
 root.mainloop()
